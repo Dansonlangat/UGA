@@ -67,6 +67,7 @@
 						<a th:href="@{'/page/' + ${currentPage} + '?sortField=flightNumber&sortDir=' + ${reverseSortDir}}">
 							Flight Number</a>
 					</th>
+					<th> + </th>
 					<th> Actions </th>
 				</tr>
 
@@ -78,6 +79,7 @@
 					<td th:text="${passenger.Nationality}"></td>
 					<td th:text="${passenger.Destination}"></td>
 					<td th:text="${passenger.flightNumber}"></td>
+					<td> <a th:href="@{/showNewBagForm}" class="btn btn-primary">Add Luggage</a></td>
 					<td> <a th:href="@{/showFormForUpdate/{id}(id=${passenger.id})}" class="btn btn-primary">Update</a>
 					    <a th:href="@{/deletePassenger/{id}(id=${passenger.id})}" class="btn btn-danger">Delete</a>
 					</td>

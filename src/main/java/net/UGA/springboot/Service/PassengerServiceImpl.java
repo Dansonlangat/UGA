@@ -26,8 +26,9 @@ public class PassengerServiceImpl implements PassengerService {
 	}
 
 	@Override
-	public void savePassenger(Passenger passenger) {
-		this.passengerRepository.save(passenger);
+	public Long savePassenger(Passenger passenger) {
+		return this.passengerRepository.save(passenger).getId();
+		
 	}
 
 	@Override

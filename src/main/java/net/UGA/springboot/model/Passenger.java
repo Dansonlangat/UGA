@@ -1,10 +1,15 @@
 package net.UGA.springboot.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +34,20 @@ public class Passenger {
 
 	@Column(name = "flight_number")
 	private String flightNumber;
+	
+	   @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+
+	   private List<Bag> bags;
+
+
+	       public List<Bag> getBags() {
+	           return bags;
+	       }
+
+	       public void setBags(List<Bag> bags) {
+	           this.bags = bags;
+	       }
 
 	public long getId() {
 		return id;

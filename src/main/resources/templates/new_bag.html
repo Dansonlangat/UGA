@@ -13,9 +13,14 @@
     <h1>VIP Bags Management System</h1>
     <hr>
     <h2>Passenger Luggage</h2>
+    
 
     <form action="#" th:action="@{/saveBag}" th:object="${bag}"
           method="POST">
+          
+           <!-- insert passenger Id -->
+		<input type="hidden" th:field="*{passenger}" >  
+			
         <input type="text" th:field="*{bagColor}"
                placeholder="Bag Color" class="form-control mb-4 col-4">
 

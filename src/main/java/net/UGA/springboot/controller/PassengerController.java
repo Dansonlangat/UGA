@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PassengerController {
@@ -32,11 +33,17 @@ public class PassengerController {
 		return "new_passenger";
 	}
 	
+//	@PostMapping("/savePassenger")
+//	public String savePassenger(@ModelAttribute("passenger") Passenger passenger) {
+//		// save passenger to database
+//		passengerService.savePassenger(passenger);
+//		return "redirect:/";
+//	}
 	@PostMapping("/savePassenger")
-	public String savePassenger(@ModelAttribute("passenger") Passenger passenger) {
-		// save passenger to database
-		passengerService.savePassenger(passenger);
-		return "redirect:/";
+	public String savePassenger(@ModelAttribute("passenger") Passenger passenger, RedirectAttributes redirectAttributes) {
+	    Long id = passengerService.savePassenger(passenger);
+	    redirectAttributes.addAttribute("passengerId", id);
+	    return "redirect:/";
 	}
 	/*public String savePassenger(@RequestBody Passenger passenger) {
 		// save Passenger to database
