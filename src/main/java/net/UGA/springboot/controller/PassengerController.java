@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.UGA.springboot.Service.PassengerService;
+import net.UGA.springboot.dto.PassengerDto;
 import net.UGA.springboot.model.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,8 +41,16 @@ public class PassengerController {
 //		return "redirect:/";
 //	}
 	@PostMapping("/savePassenger")
-	public String savePassenger(@ModelAttribute("passenger") Passenger passenger, RedirectAttributes redirectAttributes) {
-	    Long id = passengerService.savePassenger(passenger);
+	public String savePassenger(@ModelAttribute("passenger") PassengerDto passenger, RedirectAttributes redirectAttributes) {
+		
+		Passenger passenger1 = new Passenger();
+		passenger1.setDestination(passenger.getDestination());
+		passenger1.setFirstName(passenger.getFirstName());
+		passenger1.setLastName(passenger.getLastName());
+		passenger1.setNationality(passenger.getNationality());
+		passenger1.setFlightNumber(passenger.getFlightNumber());
+		
+	    Long id = passengerService.savePassenger(passenger1);
 	    redirectAttributes.addAttribute("passengerId", id);
 	    return "redirect:/";
 	}
@@ -76,7 +85,7 @@ public class PassengerController {
 			@RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir,
 			Model model) {
-		int pageSize = 5;
+		int pageSize = 10;
 		
 		Page<Passenger> page = passengerService.findPaginated(pageNo, pageSize, sortField, sortDir);
 		List<Passenger> listPassengers = page.getContent();

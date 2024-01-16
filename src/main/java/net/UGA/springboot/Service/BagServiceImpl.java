@@ -11,14 +11,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import net.UGA.springboot.Repository.BagRepository;
-
+import net.UGA.springboot.Repository.PassengerRepository;
 import net.UGA.springboot.model.Bag;
+import net.UGA.springboot.model.Passenger;
 
 @Service
 public class BagServiceImpl implements BagService {
 
     @Autowired
     private BagRepository bagRepository;
+    
+    @Autowired
+    private PassengerRepository passengerRepository;
 
     @Override
     public List<Bag> getAllBags() {
@@ -26,8 +30,17 @@ public class BagServiceImpl implements BagService {
     }
 
     @Override
-    public void saveBag(Bag bag) {
-        this.bagRepository.save(bag);
+    public Long saveBag(Bag bag,Long passengerId) {
+    	System.out.println("Am here!!"+passengerId);
+    	Optional<Passenger> passenger = passengerRepository.findById(passengerId) ;
+    	if(!passenger.isPresent()) {
+    		System.out.println("Passenger not found..!!");
+    	//TODO  return error
+    	}
+    	
+    	bag.setPassenger(passenger.get());
+    	System.out.println("Passenger Id Out");
+       return this.bagRepository.save(bag).getId();
     }
 
     @Override

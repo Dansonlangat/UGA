@@ -15,11 +15,13 @@
     <h2>Passenger Luggage</h2>
     
 
-    <form action="#" th:action="@{/saveBag}" th:object="${bag}"
+    <form action="#" th:action="@{/saveBag(passengerId=${param.passengerId})}" th:object="${bag}"
           method="POST">
           
            <!-- insert passenger Id -->
-		<input type="hidden" th:field="*{passenger}" >  
+		
+		 <input type="hidden" th:field="*{passenger}" th:value="${param.passengerId}">
+		
 			
         <input type="text" th:field="*{bagColor}"
                placeholder="Bag Color" class="form-control mb-4 col-4">
@@ -35,7 +37,7 @@
 
 
 
-        <button type="submit" class="btn btn-info col-2"> Save Passenger and Details</button>
+        <button type="submit" class="btn btn-info col-2"> Save Luggage</button>
     </form>
 
     <hr>

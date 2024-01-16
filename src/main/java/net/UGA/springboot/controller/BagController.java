@@ -3,9 +3,8 @@ package net.UGA.springboot.controller;
 import java.util.List;
 
 import net.UGA.springboot.Service.BagService;
-
+import net.UGA.springboot.dto.BagDto;
 import net.UGA.springboot.model.Bag;
-import net.UGA.springboot.model.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,7 @@ public class BagController {
     }
 
     @GetMapping("/showNewBagForm")
-    public String showNewPBagForm(Model model) {
+    public String showNewBagForm(Model model) {
         // create model attribute to bind form data
         Bag bag = new Bag();
         model.addAttribute("bag", bag);
@@ -33,11 +32,18 @@ public class BagController {
     }
 
     @PostMapping("/saveBag")
-    public String saveBag(@ModelAttribute("bag") Bag bag) {
-        // save Bag to database
-        bagService.saveBag(bag);
-        return "redirect:/";
-    }
+    public String saveBag(@RequestParam Long passengerId,@ModelAttribute("bag") BagDto bag) {
+    	System.out.println("Save Bag"+ bag.toString());
+
+		Bag bag1 = new Bag();
+		bag1.setBagColor(bag.getBagColor());
+		bag1.setBagSize(bag.getBagSize());
+		bag1.setBagWeight(bag.getBagWeight());
+		bag1.setCode(bag.getCode());
+
+		bagService.saveBag(bag1,passengerId);
+	    return "redirect:/";
+	}
 
     @GetMapping("/showBagFormForUpdate/{id}")
     public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
@@ -64,7 +70,7 @@ public class BagController {
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir,
                                 Model model) {
-        int pageSize = 5;
+        int pageSize = 10;
 
         Page<Bag> page = bagService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Bag> listBags = page.getContent();

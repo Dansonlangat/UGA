@@ -48,6 +48,7 @@ public class Passenger {
 	       public void setBags(List<Bag> bags) {
 	           this.bags = bags;
 	       }
+	  
 
 	public long getId() {
 		return id;

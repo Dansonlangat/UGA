@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "bags")
 public class Bag {
@@ -28,6 +30,7 @@ public class Bag {
     @Column(name = "bar_code")
     private String code;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "passenger_id")
     private Passenger passenger;
