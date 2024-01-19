@@ -1,6 +1,8 @@
 package net.UGA.springboot.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +17,10 @@ import net.UGA.springboot.Repository.PassengerRepository;
 import net.UGA.springboot.model.Bag;
 import net.UGA.springboot.model.Passenger;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class BagServiceImpl implements BagService {
 
     @Autowired
@@ -39,8 +44,18 @@ public class BagServiceImpl implements BagService {
     	}
     	
     	bag.setPassenger(passenger.get());
-    	System.out.println("Passenger Id Out");
+    	System.out.println("Passenger Id picked");
        return this.bagRepository.save(bag).getId();
+    }
+
+    @Override
+    public ResponseEntity<?> saveBag(List<Bag> bags) {
+        try {
+            bagRepository.saveAll(bags);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override

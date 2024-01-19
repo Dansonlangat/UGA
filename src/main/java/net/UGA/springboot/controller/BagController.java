@@ -7,6 +7,7 @@ import net.UGA.springboot.dto.BagDto;
 import net.UGA.springboot.model.Bag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,10 @@ public class BagController {
     private BagService bagService;
 
     // display list of bags
-    @GetMapping("/Bag")
-    public String viewHomePage(Model model) {
+    @GetMapping("/luggage")
+
+    //System.out.println("Am here..!!")
+    public String viewLuggagePage(Model model) {
         return findPaginated(1, "bagColor", "asc", model);
     }
 
@@ -65,7 +68,7 @@ public class BagController {
     }
 
 
-    @GetMapping("/page/Bag/{pageNo}")
+    @GetMapping("/Bag/page/{pageNo}")
     public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir,
@@ -84,6 +87,6 @@ public class BagController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("listBags", listBags);
-        return "index";
+        return "luggage";
     }
 }

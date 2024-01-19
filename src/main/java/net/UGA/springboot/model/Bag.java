@@ -30,11 +30,22 @@ public class Bag {
     @Column(name = "bar_code")
     private String code;
     
+
+//    @Column(name = "Collected")
+//    private boolean Collected;
+//    public boolean isCollected() {
+//        return Collected;
+//    }
+//
+//    public void setCollected(boolean collected) {
+//        Collected = collected;
+//    }
+
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "passenger_id")
     private Passenger passenger;
-
 
     public Passenger getPassenger() {
         return passenger;

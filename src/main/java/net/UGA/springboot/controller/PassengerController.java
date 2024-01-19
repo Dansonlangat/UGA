@@ -5,10 +5,12 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.UGA.springboot.Service.PassengerService;
+import net.UGA.springboot.dto.NewPassengerEntry;
 import net.UGA.springboot.dto.PassengerDto;
 import net.UGA.springboot.model.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ public class PassengerController {
 	public String viewHomePage(Model model) {
 		return findPaginated(1, "firstName", "asc", model);
 	}
+
 	
 	@GetMapping("/showNewPassengerForm")
 	public String showNewPassengerForm(Model model) {
@@ -34,15 +37,13 @@ public class PassengerController {
 		return "new_passenger";
 	}
 	
-//	@PostMapping("/savePassenger")
-//	public String savePassenger(@ModelAttribute("passenger") Passenger passenger) {
-//		// save passenger to database
-//		passengerService.savePassenger(passenger);
-//		return "redirect:/";
-//	}
+	@PostMapping("/saveNewEntry")
+	public ResponseEntity<?> savePassenger(@RequestBody NewPassengerEntry newPassengerEntry) {
+		return passengerService.savePassenger(newPassengerEntry);
+	}
 	@PostMapping("/savePassenger")
 	public String savePassenger(@ModelAttribute("passenger") PassengerDto passenger, RedirectAttributes redirectAttributes) {
-		
+
 		Passenger passenger1 = new Passenger();
 		passenger1.setDestination(passenger.getDestination());
 		passenger1.setFirstName(passenger.getFirstName());
@@ -81,7 +82,7 @@ public class PassengerController {
 	
 	
 	@GetMapping("/page/{pageNo}")
-	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, 
+	public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
 			@RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir,
 			Model model) {
