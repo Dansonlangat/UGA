@@ -7,6 +7,7 @@ import net.UGA.springboot.dto.BagDto;
 import net.UGA.springboot.model.Bag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,6 +68,15 @@ public class BagController {
         return "redirect:/";
     }
 
+    @GetMapping("/bags")
+    public ResponseEntity<?> getCollectedLuggage(@RequestParam(name = "collected", required = false) boolean collected){
+       return bagService.listOfBags(collected);
+    }
+
+    @PutMapping("/luggage")
+    public ResponseEntity<?> updateLuggage(@RequestBody BagDto bagDto){
+        return bagService.updateLuggage(bagDto);
+    }
 
     @GetMapping("/Bag/page/{pageNo}")
     public String findPaginated(@PathVariable (value = "pageNo") int pageNo,

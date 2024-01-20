@@ -1,5 +1,6 @@
 package net.UGA.springboot.Service;
 
+import net.UGA.springboot.dto.BagDto;
 import net.UGA.springboot.model.Bag;
 import java.util.List;
 
@@ -14,6 +15,9 @@ public interface BagService {
     Bag getBagById(long id);
     void deleteBagById(long id);
 
+    ResponseEntity<?> listOfBags(Boolean collected);
 //     List<Bag> getAllBagsWithTrueBooleanField();
     Page<Bag> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+
+    ResponseEntity<?> updateLuggage(BagDto bagDto);
 }

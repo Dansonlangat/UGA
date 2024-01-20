@@ -29,18 +29,18 @@ public class Bag {
     private String bagWeight;
     @Column(name = "bar_code")
     private String code;
-    
 
-//    @Column(name = "Collected")
-//    private boolean Collected;
-//    public boolean isCollected() {
-//        return Collected;
-//    }
-//
-//    public void setCollected(boolean collected) {
-//        Collected = collected;
-//    }
 
+    @Column(name = "Collected")
+    private boolean Collected =false;
+
+    public boolean isCollected() {
+        return Collected;
+    }
+
+    public void setCollected(boolean collected) {
+        Collected = collected;
+    }
 
     @JsonIgnore
     @ManyToOne

@@ -1,5 +1,6 @@
 package net.UGA.springboot.Service;
 
+import net.UGA.springboot.dto.BagDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,11 +77,32 @@ public class BagServiceImpl implements BagService {
     }
 
     @Override
+    public ResponseEntity<?> listOfBags(Boolean collected) {
+        Optional<List<Bag>> optional = bagRepository.findCollectedBags(collected);
+        if (!optional.isPresent()){
+            return ResponseEntity.status(404).body("no bags found");
+        }
+        return ResponseEntity.ok(optional.get());
+    }
+
+    @Override
     public Page<Bag> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
 
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return this.bagRepository.findAll(pageable);
+    }
+
+    @Override
+    public ResponseEntity<?> updateLuggage(BagDto bagDto) {
+        Bag bag1 = new Bag();
+        bag1.setBagColor(bagDto.getBagColor());
+        bag1.setBagSize(bagDto.getBagSize());
+        bag1.setBagWeight(bagDto.getBagWeight());
+        bag1.setCode(bagDto.getCode());
+        bag1.setCollected(bagDto.getCollected());
+        bag1.setId(bagDto.getId());
+        return ResponseEntity.ok(bagRepository.save(bag1).getId());
     }
 }
