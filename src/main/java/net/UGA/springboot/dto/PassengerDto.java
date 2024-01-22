@@ -1,7 +1,7 @@
 package net.UGA.springboot.dto;
 
 public class PassengerDto {
-	private Long id;
+	private Long id = -1L;
 	private String firstName;
 	private String lastName;
 	private String nationality;

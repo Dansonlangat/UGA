@@ -13,4 +13,6 @@ public interface BagRepository extends JpaRepository<Bag, Long>{
 
     @Query(value="SELECT * FROM bags  WHERE Collected = ?1",nativeQuery = true)
     Optional<List<Bag>> findCollectedBags(Boolean collected);
+    @Query(value="SELECT * FROM bags WHERE bar_code = ?1",nativeQuery = true)
+    Optional<Bag> getBagByCode(long code);
 }

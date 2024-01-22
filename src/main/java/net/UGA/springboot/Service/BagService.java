@@ -13,6 +13,7 @@ public interface BagService {
     Long  saveBag(Bag bag,Long passengerId);
     ResponseEntity<?> saveBag(List<Bag> bag);
     Bag getBagById(long id);
+    ResponseEntity<?> getBagByCode(long code);
     void deleteBagById(long id);
 
     ResponseEntity<?> listOfBags(Boolean collected);

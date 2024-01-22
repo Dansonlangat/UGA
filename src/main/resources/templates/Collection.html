@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>VIP Bags Management System</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <!--            <a class="navbar-brand" href="#" th:href="@{/}">VIP Bags Management System</a>-->
+            <a class="navbar-brand" href="#" th:href="@{/Pending_Collection}">Pending Collection</a>
+        </div>
+
+        <!--        <div id="navbar" class="collapse navbar-collapse">-->
+        <!--            <ul class="nav navbar-nav" id="center">-->
+        <!--                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>-->
+        <!--            </ul>-->
+        <!--        </div>-->
+    </div>
+</nav>
+
+<br>
+<br>
+
+<div class="container my-2">
+    <h1>Pending Collection</h1>
+
+
+
+    <table border="1" class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>
+
+                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=bagSize&sortDir=' + ${reverseSortDir}}">
+                    Color</a>
+            </th>
+            <th>
+                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=bagSize&sortDir=' + ${reverseSortDir}}">
+                    Size</a>
+            </th>
+            <th>
+                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=bagWeight&sortDir=' + ${reverseSortDir}}">
+                    Weight</a>
+            </th>
+
+            <th>
+                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=code&sortDir=' + ${reverseSortDir}}">
+                    Bar Code</a>
+            </th>
+
+            <th>
+                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=passengerId&sortDir=' + ${reverseSortDir}}">
+                    Passenger Id</a>
+            </th>
+            <th>
+                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=collected&sortDir=' + ${reverseSortDir}}">
+                Collected</a>
+            </th>
+            <!--            <th> + </th>-->
+            <!--            <th> Actions </th>-->
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr th:each="bag : ${listBags}">
+            <td th:text="${bag.bagColor}"></td>
+            <td th:text="${bag.bagSize}"></td>
+            <td th:text="${bag.bagWeight}"></td>
+            <td th:text="${bag.Code}"></td>
+            <td th:text="${bag.passenger.id}"></td>
+            <input type="checkbox" th:checked="${Collected}" />
+            <!--					<td> <a th:href="@{/showNewBagForm(passengerId=${param.passengerId})}" class="btn btn-primary">Add Luggage</a></td>-->
+            <!--            <td> <a th:href="@{/showNewBagForm(passengerId=${passenger.Id})}" class="btn btn-primary">Add Luggage</a></td>-->
+            <!--            <td> <a th:href="@{/showFormForUpdate/{id}(id=${passenger.id})}" class="btn btn-primary">Update</a>-->
+            <!--                <a th:href="@{/deletePassenger/{id}(id=${passenger.id})}" class="btn btn-danger">Delete</a>-->
+            <!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+    <!--    <a th:href = "@{/showNewPassengerForm}" class="btn btn-primary btn-sm mb-3"> New Passenger </a>-->
+    <a th:href = "@{/}"> Back to Passenger List</a>
+    <div th:if = "${totalPages > 1}">
+        <div class = "row col-sm-10">
+            <div class = "col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/Bag/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+            </div>
+            <div class = "col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/Bag/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/Bag/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

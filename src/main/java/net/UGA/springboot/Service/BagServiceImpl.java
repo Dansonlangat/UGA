@@ -54,6 +54,7 @@ public class BagServiceImpl implements BagService {
         try {
             bagRepository.saveAll(bags);
             return new ResponseEntity<>(HttpStatus.OK);
+
         }catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -72,6 +73,18 @@ public class BagServiceImpl implements BagService {
     }
 
     @Override
+    public ResponseEntity<?> getBagByCode(long code) {
+        Optional<Bag> optional = bagRepository.getBagByCode(code);
+        //Bag bag = null;
+        if (optional.isPresent()) {
+           return  ResponseEntity.status(HttpStatus.OK).body(optional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No luggage found");
+        }
+    }
+
+
+    @Override
     public void deleteBagById(long id) {
         this.bagRepository.deleteById(id);
     }
@@ -83,6 +96,7 @@ public class BagServiceImpl implements BagService {
             return ResponseEntity.status(404).body("no bags found");
         }
         return ResponseEntity.ok(optional.get());
+       // return "Collection";
     }
 
     @Override
@@ -96,6 +110,12 @@ public class BagServiceImpl implements BagService {
 
     @Override
     public ResponseEntity<?> updateLuggage(BagDto bagDto) {
+
+        Optional<Bag> optional =   bagRepository.findById(bagDto.getId());
+        if (!optional.isPresent()){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No luggage found");
+        }
+        Bag currentBag = optional.get();
         Bag bag1 = new Bag();
         bag1.setBagColor(bagDto.getBagColor());
         bag1.setBagSize(bagDto.getBagSize());
@@ -103,6 +123,7 @@ public class BagServiceImpl implements BagService {
         bag1.setCode(bagDto.getCode());
         bag1.setCollected(bagDto.getCollected());
         bag1.setId(bagDto.getId());
+        bag1.setPassenger(currentBag.getPassenger());
         return ResponseEntity.ok(bagRepository.save(bag1).getId());
     }
 }

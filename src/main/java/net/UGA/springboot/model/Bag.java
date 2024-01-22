@@ -27,7 +27,7 @@ public class Bag {
 
     @Column(name = "bag_weight")
     private String bagWeight;
-    @Column(name = "bar_code")
+    @Column(name = "bar_code", unique = true)
     private String code;
 
 

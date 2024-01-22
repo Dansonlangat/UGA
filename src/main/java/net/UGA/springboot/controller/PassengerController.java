@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.UGA.springboot.Service.PassengerService;
+import net.UGA.springboot.dto.BagDto;
 import net.UGA.springboot.dto.NewPassengerEntry;
 import net.UGA.springboot.dto.PassengerDto;
 import net.UGA.springboot.model.Passenger;
@@ -50,7 +51,9 @@ public class PassengerController {
 		passenger1.setLastName(passenger.getLastName());
 		passenger1.setNationality(passenger.getNationality());
 		passenger1.setFlightNumber(passenger.getFlightNumber());
-		
+		if (passenger.getId() != -1L) {
+			passenger1.setId(passenger.getId());
+		}
 	    Long id = passengerService.savePassenger(passenger1);
 	    redirectAttributes.addAttribute("passengerId", id);
 	    return "redirect:/";
@@ -71,6 +74,10 @@ public class PassengerController {
 		model.addAttribute("passenger", passenger);
 		return "update_passenger";
 	}
+//	@PutMapping("/UpdatePassenger")
+//	public ResponseEntity<?> updatePassenger(@RequestBody PassengerDto passengerDto){
+//		return passengerDto.getClass(passengerDto);
+//	}
 	
 	@GetMapping("/deletePassenger/{id}")
 	public String deletepassenger(@PathVariable (value = "id") long id) {

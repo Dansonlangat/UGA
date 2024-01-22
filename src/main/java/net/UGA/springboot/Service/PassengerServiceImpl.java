@@ -70,7 +70,7 @@ public class PassengerServiceImpl implements PassengerService {
                 bagList.add(bag);
             }
             return bagService.saveBag(bagList);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -88,6 +88,26 @@ public class PassengerServiceImpl implements PassengerService {
         return passenger;
     }
 
+
+     @Override
+    public ResponseEntity<?> updatePassenger(PassengerDto passengerDto) {
+
+        Optional<Passenger> optional =   passengerRepository.findById(passengerDto.getId());
+        if (!optional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Passenger Not found");
+        }
+        Passenger currentPassenger = optional.get();
+        Passenger passenger1 = new Passenger();
+        passenger1.setFirstName(passengerDto.getFirstName());
+        passenger1.setLastName(passengerDto.getLastName());
+        passenger1.setNationality(passengerDto.getNationality());
+        passenger1.setDestination(passengerDto.getDestination());
+        passenger1.setFlightNumber(passengerDto.getFlightNumber());
+        passenger1.setId(passengerDto.getId());
+        return ResponseEntity.ok(passengerRepository.save(passenger1).getId());
+    }
+
+
     @Override
     public void deletePassengerById(long id) {
         this.passengerRepository.deleteById(id);
@@ -95,8 +115,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public Page<Passenger> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
-                Sort.by(sortField).descending();
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
 
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return this.passengerRepository.findAll(pageable);

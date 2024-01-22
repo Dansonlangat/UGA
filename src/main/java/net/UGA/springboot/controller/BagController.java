@@ -69,14 +69,22 @@ public class BagController {
     }
 
     @GetMapping("/bags")
-    public ResponseEntity<?> getCollectedLuggage(@RequestParam(name = "collected", required = false) boolean collected){
+    public ResponseEntity<?> getCollectedLuggage(@RequestParam(name = "collected") boolean collected){
        return bagService.listOfBags(collected);
+
+    }
+    @GetMapping("/luggageByBarCode")
+    public ResponseEntity<?> getLuggageByBarCode(@RequestParam(name = "barcode") Long barcode){
+        return bagService.getBagByCode(barcode);
+
     }
 
     @PutMapping("/luggage")
     public ResponseEntity<?> updateLuggage(@RequestBody BagDto bagDto){
         return bagService.updateLuggage(bagDto);
     }
+
+
 
     @GetMapping("/Bag/page/{pageNo}")
     public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
