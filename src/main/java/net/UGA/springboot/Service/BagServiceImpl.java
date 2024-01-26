@@ -37,15 +37,12 @@ public class BagServiceImpl implements BagService {
 
     @Override
     public Long saveBag(Bag bag,Long passengerId) {
-    	System.out.println("Am here!!"+passengerId);
     	Optional<Passenger> passenger = passengerRepository.findById(passengerId) ;
     	if(!passenger.isPresent()) {
     		System.out.println("Passenger not found..!!");
     	//TODO  return error
     	}
-    	
     	bag.setPassenger(passenger.get());
-    	System.out.println("Passenger Id picked");
        return this.bagRepository.save(bag).getId();
     }
 
@@ -101,6 +98,14 @@ public class BagServiceImpl implements BagService {
 
     @Override
     public Page<Bag> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return this.bagRepository.findAll(pageable);
+    }
+    @Override
+    public Page<Bag> findCollectedPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
 

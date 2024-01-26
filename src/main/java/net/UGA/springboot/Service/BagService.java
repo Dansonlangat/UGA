@@ -20,5 +20,7 @@ public interface BagService {
 //     List<Bag> getAllBagsWithTrueBooleanField();
     Page<Bag> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 
+    Page<Bag> findCollectedPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+
     ResponseEntity<?> updateLuggage(BagDto bagDto);
 }

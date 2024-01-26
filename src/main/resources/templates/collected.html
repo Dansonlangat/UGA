@@ -3,7 +3,7 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>VIP Bags Management System</title>
-
+    <!--    <link rel="stylesheet" href="/css/styles.css">-->
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -25,7 +25,7 @@
                     class="icon-bar"></span>
             </button>
             <!--            <a class="navbar-brand" href="#" th:href="@{/}">VIP Bags Management System</a>-->
-            <a class="navbar-brand" href="#" th:href="@{/Pending_Collection}">Pending Collection</a>
+<!--            <a class="navbar-brand" href="#" th:href="@{/collected}">Collected Luggage List</a>-->
         </div>
 
         <!--        <div id="navbar" class="collapse navbar-collapse">-->
@@ -40,7 +40,7 @@
 <br>
 
 <div class="container my-2">
-    <h1>Pending Collection</h1>
+    <h1>Luggage Collection</h1>
 
 
 
@@ -49,30 +49,26 @@
         <tr>
             <th>
 
-                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=bagSize&sortDir=' + ${reverseSortDir}}">
+                <a th:href="@{'/Collected/page/' + ${currentPage} + '?sortField=bagSize&sortDir=' + ${reverseSortDir}}">
                     Color</a>
             </th>
             <th>
-                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=bagSize&sortDir=' + ${reverseSortDir}}">
+                <a th:href="@{'/Collected/page/' + ${currentPage} + '?sortField=bagSize&sortDir=' + ${reverseSortDir}}">
                     Size</a>
             </th>
             <th>
-                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=bagWeight&sortDir=' + ${reverseSortDir}}">
+                <a th:href="@{'/Collected/page/' + ${currentPage} + '?sortField=bagWeight&sortDir=' + ${reverseSortDir}}">
                     Weight</a>
             </th>
 
             <th>
-                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=code&sortDir=' + ${reverseSortDir}}">
+                <a th:href="@{'/Collected/page/' + ${currentPage} + '?sortField=code&sortDir=' + ${reverseSortDir}}">
                     Bar Code</a>
             </th>
 
             <th>
-                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=passengerId&sortDir=' + ${reverseSortDir}}">
-                    Passenger Id</a>
-            </th>
-            <th>
-                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=collected&sortDir=' + ${reverseSortDir}}">
-                Collected</a>
+                <a th:href="@{'/Collected/page/' + ${currentPage} + '?sortField=collected&sortDir=' + ${reverseSortDir}}">
+                    Collected</a>
             </th>
             <!--            <th> + </th>-->
             <!--            <th> Actions </th>-->
@@ -85,8 +81,8 @@
             <td th:text="${bag.bagSize}"></td>
             <td th:text="${bag.bagWeight}"></td>
             <td th:text="${bag.Code}"></td>
-            <td th:text="${bag.passenger.id}"></td>
-            <input type="checkbox" th:checked="${Collected}" />
+<!--            <td th:text="${bag.passenger.id}"></td>-->
+            <td th:text="${bag.collected ? 'Yes' : 'No'}">Collected</td>
             <!--					<td> <a th:href="@{/showNewBagForm(passengerId=${param.passengerId})}" class="btn btn-primary">Add Luggage</a></td>-->
             <!--            <td> <a th:href="@{/showNewBagForm(passengerId=${passenger.Id})}" class="btn btn-primary">Add Luggage</a></td>-->
             <!--            <td> <a th:href="@{/showFormForUpdate/{id}(id=${passenger.id})}" class="btn btn-primary">Update</a>-->
@@ -96,7 +92,7 @@
         </tbody>
     </table>
     <!--    <a th:href = "@{/showNewPassengerForm}" class="btn btn-primary btn-sm mb-3"> New Passenger </a>-->
-    <a th:href = "@{/}"> Back to Passenger List</a>
+    <a th:href = "@{/passenger}"> Back to Passenger List</a>
     <div th:if = "${totalPages > 1}">
         <div class = "row col-sm-10">
             <div class = "col-sm-2">

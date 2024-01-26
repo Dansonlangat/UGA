@@ -88,8 +88,7 @@ public class PassengerServiceImpl implements PassengerService {
         return passenger;
     }
 
-
-     @Override
+    @Override
     public ResponseEntity<?> updatePassenger(PassengerDto passengerDto) {
 
         Optional<Passenger> optional =   passengerRepository.findById(passengerDto.getId());
@@ -108,6 +107,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
 
+
     @Override
     public void deletePassengerById(long id) {
         this.passengerRepository.deleteById(id);
@@ -121,3 +121,4 @@ public class PassengerServiceImpl implements PassengerService {
         return this.passengerRepository.findAll(pageable);
     }
 }
+

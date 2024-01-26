@@ -24,12 +24,11 @@ public class PassengerController {
 	private PassengerService passengerService;
 	
 	// display list of passengers
-	@GetMapping("/")
-	public String viewHomePage(Model model) {
-		return findPaginated(1, "firstName", "asc", model);
+	@GetMapping("/passenger")
+	public String viewPassengerPage(Model model) {
+		return findPaginated(1, "Id", "dsc", model);
 	}
 
-	
 	@GetMapping("/showNewPassengerForm")
 	public String showNewPassengerForm(Model model) {
 		// create model attribute to bind form data
@@ -88,7 +87,7 @@ public class PassengerController {
 	}
 	
 	
-	@GetMapping("/page/{pageNo}")
+	@GetMapping("/Passenger/page/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
 			@RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir,
@@ -112,6 +111,6 @@ public class PassengerController {
             throw new RuntimeException(e);
         }
         model.addAttribute("listPassengers", listPassengers);
-		return "index";
+		return "passenger";
 	}
 }

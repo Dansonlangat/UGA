@@ -24,7 +24,14 @@ public class BagController {
 
     //System.out.println("Am here..!!")
     public String viewLuggagePage(Model model) {
-        return findPaginated(1, "bagColor", "asc", model);
+        return findPaginated(1, "passengerId", "dsc", model);
+    }
+
+    @GetMapping("/collected")
+
+    //System.out.println("Am here..!!")
+    public String viewCollectedPage(Model model) {
+        return findCollectedPaginated(1, "bagColor", "dsc", model);
     }
 
     @GetMapping("/showNewBagForm")
@@ -106,5 +113,27 @@ public class BagController {
 
         model.addAttribute("listBags", listBags);
         return "luggage";
+    }
+
+    @GetMapping("/Collected/page/{pageNo}")
+    public String findCollectedPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model) {
+        int pageSize = 10;
+
+        Page<Bag> page = bagService.findCollectedPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Bag> listBags = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("listBags", listBags);
+        return "collected";
     }
 }
