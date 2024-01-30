@@ -30,10 +30,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Uganda Aviation App</title>
-    <!--    <link rel="stylesheet"-->
-    <!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
-    <!--          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"-->
-    <!--          crossorigin="anonymous">-->
+<!--        <link rel="stylesheet"-->
+<!--              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
+<!--              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"-->
+<!--              crossorigin="anonymous">-->
     <link rel="stylesheet" href="/css/styles.css">
 <!--    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" href="../../static/styles.css"/>-->
 </head>
@@ -46,7 +46,7 @@
         <ul>
             <li><a th:href="@{/passenger}">Passenger</a></li>
             <li><a th:href="@{/luggage}">Luggage</a></li>
-            <li><a th:href="@{/collected}">Luggage Collection Status</a></li>
+<!--            <li><a th:href="@{/collected}">Luggage Collection Status</a></li>-->
         </ul>
         <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-danger">Logout</a></li>
     </div>

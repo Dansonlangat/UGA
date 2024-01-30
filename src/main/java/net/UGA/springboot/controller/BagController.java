@@ -53,7 +53,7 @@ public class BagController {
 		bag1.setCode(bag.getCode());
 
 		bagService.saveBag(bag1,passengerId);
-	    return "redirect:/";
+	    return "redirect:/passenger";
 	}
 
     @GetMapping("/showBagFormForUpdate/{id}")
@@ -135,5 +135,11 @@ public class BagController {
 
         model.addAttribute("listBags", listBags);
         return "collected";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception ex, Model model) {
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "error";
     }
 }

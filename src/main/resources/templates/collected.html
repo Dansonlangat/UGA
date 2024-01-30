@@ -67,8 +67,13 @@
             </th>
 
             <th>
+                <a th:href="@{'/Collected/page/' + ${currentPage} + '?sortField=code&sortDir=' + ${reverseSortDir}}">
+                    Passenger Id</a>
+            </th>
+
+            <th>
                 <a th:href="@{'/Collected/page/' + ${currentPage} + '?sortField=collected&sortDir=' + ${reverseSortDir}}">
-                    Collected</a>
+                    Status</a>
             </th>
             <!--            <th> + </th>-->
             <!--            <th> Actions </th>-->
@@ -81,8 +86,8 @@
             <td th:text="${bag.bagSize}"></td>
             <td th:text="${bag.bagWeight}"></td>
             <td th:text="${bag.Code}"></td>
-<!--            <td th:text="${bag.passenger.id}"></td>-->
-            <td th:text="${bag.collected ? 'Yes' : 'No'}">Collected</td>
+            <td th:text="${bag.passenger.id}"></td>
+            <td th:text="${bag.collected ? 'Collected' : 'Pending'}">Collected</td>
             <!--					<td> <a th:href="@{/showNewBagForm(passengerId=${param.passengerId})}" class="btn btn-primary">Add Luggage</a></td>-->
             <!--            <td> <a th:href="@{/showNewBagForm(passengerId=${passenger.Id})}" class="btn btn-primary">Add Luggage</a></td>-->
             <!--            <td> <a th:href="@{/showFormForUpdate/{id}(id=${passenger.id})}" class="btn btn-primary">Update</a>-->

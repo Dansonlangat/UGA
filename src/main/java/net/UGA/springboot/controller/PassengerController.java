@@ -8,6 +8,7 @@ import net.UGA.springboot.Service.PassengerService;
 import net.UGA.springboot.dto.BagDto;
 import net.UGA.springboot.dto.NewPassengerEntry;
 import net.UGA.springboot.dto.PassengerDto;
+import net.UGA.springboot.model.Bag;
 import net.UGA.springboot.model.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,7 +56,7 @@ public class PassengerController {
 		}
 	    Long id = passengerService.savePassenger(passenger1);
 	    redirectAttributes.addAttribute("passengerId", id);
-	    return "redirect:/";
+	    return "redirect:/passenger";
 	}
 	/*public String savePassenger(@RequestBody Passenger passenger) {
 		// save Passenger to database
@@ -83,24 +84,50 @@ public class PassengerController {
 		
 		// call delete passenger method
 		this.passengerService.deletePassengerById(id);
-		return "redirect:/";
+		return "redirect:/passenger";
 	}
 	
 	
-	@GetMapping("/Passenger/page/{pageNo}")
+//	@GetMapping("/Passenger/page/{pageNo}")
+//	public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+//			@RequestParam("sortField") String sortField,
+//			@RequestParam("sortDir") String sortDir,
+//			Model model) {
+//		int pageSize = 10;
+//
+//		Page<Passenger> page = passengerService.findPaginated(pageNo, pageSize, sortField, sortDir);
+//		List<Passenger> listPassengers = page.getContent();
+//
+//		model.addAttribute("currentPage", pageNo);
+//		model.addAttribute("totalPages", page.getTotalPages());
+//		model.addAttribute("totalItems", page.getTotalElements());
+//
+//		model.addAttribute("sortField", sortField);
+//		model.addAttribute("sortDir", sortDir);
+//		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+//		ObjectMapper mapper = new ObjectMapper();
+//        try {
+//            System.out.println(mapper.writeValueAsString(listPassengers));
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//        model.addAttribute("listPassengers", listPassengers);
+//		return "passenger";
+//	}
+	@GetMapping("/page/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
-			@RequestParam("sortField") String sortField,
-			@RequestParam("sortDir") String sortDir,
-			Model model) {
+								@RequestParam("sortField") String sortField,
+								@RequestParam("sortDir") String sortDir,
+								Model model) {
 		int pageSize = 10;
-		
+
 		Page<Passenger> page = passengerService.findPaginated(pageNo, pageSize, sortField, sortDir);
-		List<Passenger> listPassengers = page.getContent();
-		
+     	List<Passenger> listPassengers = page.getContent();
+
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		
+
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
@@ -110,7 +137,8 @@ public class PassengerController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        model.addAttribute("listPassengers", listPassengers);
+
+		model.addAttribute("listPassengers", listPassengers);
 		return "passenger";
 	}
 }
