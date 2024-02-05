@@ -30,29 +30,61 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Uganda Aviation App</title>
-<!--        <link rel="stylesheet"-->
-<!--              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
-<!--              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"-->
-<!--              crossorigin="anonymous">-->
-    <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+              crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="/css/styles.css">-->
 <!--    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" href="../../static/styles.css"/>-->
 </head>
 <body>
-<header>
-    <h1>Uganda Aviation App</h1>
+<header th:style="'background-color: #f0f0f0; padding: 10px; text-align: center;'">
+    <h3 th:style="'font-family: Arial, sans-serif; color: #333; font-size: 24px;'">Uganda Aviation App</h3>
 </header>
-<div class="container">
-    <div class="sidebar">
-        <ul>
-            <li><a th:href="@{/passenger}">Passenger</a></li>
-            <li><a th:href="@{/luggage}">Luggage</a></li>
-<!--            <li><a th:href="@{/collected}">Luggage Collection Status</a></li>-->
-        </ul>
-        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-danger">Logout</a></li>
-    </div>
-    <div class="main-content">
-        <img th:src="@{/images/logo1.jpg}" alt="login icon" th:class="'login-icon'">
-    </div>
+<!--<div class="container">-->
+<!--    <div th:style="'width: 200px; background-color: #f0f0f0; height: 100vh; overflow-y: auto;'">-->
+<!--       <ul th:style="'font-family: Arial, Brush Script; font-size: 18px; font-weight: bold;'" >-->
+<!--          <li><a th:href="@{/passenger}">Passenger</a></li>-->
+<!--          <li><a th:href="@{/luggage}">Luggage</a></li>-->
+<!--     </ul>-->
+
+<!--       <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-danger">Logout</a></li>-->
+<!--   </div>-->
+<!--    <div class="main-content">-->
+<!--       <img th:src="@{/images/logo1.jpg}" alt="login icon" th:class="'login-icon'">-->
+<!--   </div>-->
+<!--</div>-->
+
+<div th:style="'width: 200px; background-color: #f0f0f0; height: 100vh; overflow-y: auto;'">
+    <h3>Menu</h3>
+<!--    <a th:href = "@{/showNewPassengerForm}" class="btn btn-primary btn-sm mb-3"> New Passenger </a>-->
+    <ul th:style="'font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; list-style: none; padding: 0;'">
+
+        <li th:style="'padding: 10px; border-bottom: 1px solid #ccc;'">
+            <a th:href="@{/passenger}" th:style="'display: block; text-decoration: none; color: black; padding: 5px 10px; background-color: #ddd;'">Passenger List</a>
+        </li>
+        <li th:style="'padding: 10px; border-bottom: 1px solid #ccc;'">
+            <a th:href="@{/luggage}" th:style="'display: block; text-decoration: none; color: black; padding: 5px 10px; background-color: #ddd;'">Luggage List</a>
+        </li>
+        <li th:style="'padding: 10px; border-bottom: 1px solid #ccc;'">
+            <a th:href="@{/showNewPassengerForm}" th:style="'display: block; text-decoration: none; color: black; padding: 5px 10px; background-color: #ddd;'">New Passenger</a>
+        </li>
+<!--        <li th:style="'padding: 10px;'">-->
+<!--            <a th:href="@{/logout}" th:style="'display: block; text-decoration: none; color: black; padding: 5px 10px; background-color: red;'">Log Out </a>-->
+<!--        </li>-->
+    </ul>
+    <li th:style="'padding: 10px;'">
+        <a th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?');"
+           th:style="'display: block; text-decoration: none; color: black; padding: 5px 10px; background-color: red;'">
+            Log Out
+        </a>
+    </li>
+</div>
+<div class="main-content" th:src="@{/images/ugairlines.png}" th:style="'background-image: url(/images/ugairlines.png);background-position: center; background-size: cover;'">
+</div>
+<!--<img th:src="@{/images/ugairlines.png}"alt="Logo"/>-->
+<div th:style="'margin-left: 300px;'">
+
 </div>
 </body>
 </html>
