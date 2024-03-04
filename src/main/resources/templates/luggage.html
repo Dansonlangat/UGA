@@ -47,6 +47,12 @@
     <table border="1" class = "table table-striped table-responsive-md">
         <thead>
         <tr>
+
+            <th>
+                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Passenger</a>
+            </th>
+
             <th>
 
                 <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=bagSize&sortDir=' + ${reverseSortDir}}">
@@ -61,15 +67,16 @@
                     Weight</a>
             </th>
 
+
             <th>
                 <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=code&sortDir=' + ${reverseSortDir}}">
                     Bar Code</a>
             </th>
 
-            <th>
-                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=passengerId&sortDir=' + ${reverseSortDir}}">
-                    Passenger Id</a>
-            </th>
+<!--            <th>-->
+<!--                <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=passengerId&sortDir=' + ${reverseSortDir}}">-->
+<!--                    Passenger Id</a>-->
+<!--            </th>-->
 
             <th>
                 <a th:href="@{'/Bag/page/' + ${currentPage} + '?sortField=collected&sortDir=' + ${reverseSortDir}}">
@@ -82,11 +89,13 @@
         </thead>
         <tbody>
         <tr th:each="bag : ${listBags}">
+            <td th:text="${bag.passenger.firstName}"></td>
             <td th:text="${bag.bagColor}"></td>
             <td th:text="${bag.bagSize}"></td>
             <td th:text="${bag.bagWeight}"></td>
             <td th:text="${bag.Code}"></td>
-            <td th:text="${bag.passenger.id}"></td>
+<!--            <td th:text="${bag.passenger.id}"></td>-->
+
             <td th:text="${bag.collected ? 'Collected' : 'Pending'}">Collected</td>
             <!--					<td> <a th:href="@{/showNewBagForm(passengerId=${param.passengerId})}" class="btn btn-primary">Add Luggage</a></td>-->
 <!--            <td> <a th:href="@{/showNewBagForm(passengerId=${passenger.Id})}" class="btn btn-primary">Add Luggage</a></td>-->
